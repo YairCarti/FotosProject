@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Álbum de Fotos de la Fiesta</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <header>
         <h1>¡Captura un Momento!</h1>
@@ -16,9 +21,11 @@
         <div class="camera-container">
             <div id="cameraView">
                 <video id="video" autoplay playsinline></video>
-                <button id="snapButton">Tomar Foto</button>
+                <div class="camera-controls">
+                    <button id="snapButton">Tomar Foto</button>
+                    <button id="switchCameraButton" class="hidden" title="Cambiar Cámara">🔄</button>
+                </div>
             </div>
-
             <div id="previewContainer" class="hidden">
                 <img id="previewImage" src="" alt="Vista previa de la foto">
                 <p>¿Quieres subir esta foto a la galería?</p>
@@ -27,16 +34,22 @@
                     <button id="cancelButton">Cancelar</button>
                 </div>
             </div>
-            
             <canvas id="canvas" style="display:none;"></canvas>
             <div id="loader" class="loader hidden"></div>
         </div>
 
         <h2>Galería de la Fiesta</h2>
-        <div id="gallery" class="gallery">
+
+        <section id="image-carousel" class="splide" aria-label="Galería de fotos de la fiesta">
+            <div class="splide__track">
+                <ul class="splide__list" id="gallery-list">
+                </ul>
             </div>
+        </section>
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>
