@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentStream = null;
     let facingMode = 'user';
 
-    // Función de inicio de cámara modificada
+    // Función de inicio de cámara
     async function startCamera() {
         if (currentStream) {
             currentStream.getTracks().forEach(track => track.stop());
@@ -42,32 +42,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Función modificada con alertas de depuración
+    // Función para verificar si hay múltiples cámaras (versión limpia, sin alertas)
     async function checkForMultipleCameras() {
         try {
-            alert("Paso 1: Buscando cámaras...");
             const devices = await navigator.mediaDevices.enumerateDevices();
             const videoDevices = devices.filter(device => device.kind === 'videoinput');
             
-            alert(`Paso 2: Cámaras de video detectadas: ${videoDevices.length}`);
-            
-            let deviceLabels = videoDevices.map((device, index) => `Cámara ${index + 1}: ${device.label || 'Sin etiqueta (normal antes de dar permiso)'}`).join('\n');
-            if (!deviceLabels) deviceLabels = "No se encontraron etiquetas.";
-            alert(`Paso 3: Detalles de las cámaras:\n${deviceLabels}`);
-
             if (videoDevices.length > 1) {
-                alert("Resultado: ¡Se detectaron varias cámaras! Mostrando el botón.");
                 switchCameraButton.classList.remove('hidden');
-            } else {
-                alert("Resultado: Solo se detectó una cámara. El botón no se mostrará.");
             }
         } catch (err) {
             console.error("Error al enumerar dispositivos: ", err);
-            alert(`Ocurrió un error al buscar cámaras: ${err.message}`);
         }
     }
 
-    // Listener para tomar foto (sin cambios)
+    // Listener para tomar foto
     snapButton.addEventListener('click', () => {
         const context = canvas.getContext('2d');
         canvas.width = video.videoWidth;
@@ -81,14 +70,14 @@ document.addEventListener('DOMContentLoaded', () => {
         previewContainer.classList.remove('hidden');
     });
     
-    // Listener para cambiar de cámara (sin cambios)
+    // Listener para cambiar de cámara
     switchCameraButton.addEventListener('click', () => {
         facingMode = (facingMode === 'user') ? 'environment' : 'user';
         video.style.transform = (facingMode === 'user') ? 'scaleX(-1)' : 'scaleX(1)';
         startCamera();
     });
 
-    // Lógica de Cancelar y Confirmar (sin cambios)
+    // Lógica de Cancelar y Confirmar
     cancelButton.addEventListener('click', () => {
         photoBlob = null;
         previewContainer.classList.add('hidden');
@@ -96,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     confirmButton.addEventListener('click', () => { if (photoBlob) { uploadPhoto(photoBlob); } });
 
-    // Función de subir foto (sin cambios)
+    // Función de subir foto
     async function uploadPhoto(blob) {
         const formData = new FormData();
         formData.append('photo', blob, 'fiesta-foto.jpg');
@@ -116,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Función de cargar galería con carrusel (sin cambios)
+    // Función de cargar galería con carrusel
     async function loadPhotos() {
         try {
             const response = await fetch(`${BACKEND_URL}/photos`);
@@ -154,15 +143,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Función de inicialización modificada (EL ARREGLO PRINCIPAL)
+    // Función de inicialización
     async function initialize() {
-        // 1. Primero intentamos iniciar la cámara (esto fuerza el permiso)
         await startCamera();
-        // 2. Después de tener permiso, revisamos cuántas cámaras hay
         await checkForMultipleCameras();
-        // 3. Finalmente, cargamos la galería
         await loadPhotos();
-        // Aplicamos el efecto espejo inicial para la cámara frontal
         video.style.transform = 'scaleX(-1)';
     }
     
