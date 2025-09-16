@@ -266,8 +266,9 @@
 
         .btn-switch {
     position: absolute;
-    top: 1rem; /* 16px desde arriba */
-    right: 1rem; /* 16px desde la derecha */
+    bottom: 1rem; /* Lo anclamos a 1rem (16px) desde abajo */
+    left: 50%; /* Lo movemos al 50% del ancho del contenedor */
+    transform: translateX(-50%); /* Lo regresamos la mitad de su propio ancho para centrarlo perfectamente */
     width: 44px;
     height: 44px;
     background: rgba(0, 0, 0, 0.4);
@@ -283,13 +284,14 @@
     padding: 0;
     cursor: pointer;
     box-shadow: var(--shadow-md);
-    z-index: 10; /* Para asegurar que esté encima de todo */
+    z-index: 10;
 }
 
 .btn-switch:hover {
     background: var(--gold);
     color: var(--primary);
-    transform: scale(1.1) rotate(180deg);
+    /* Ajustamos el transform en hover para que no interfiera con el centrado */
+    transform: translateX(-50%) scale(1.1) rotate(180deg);
     box-shadow: var(--shadow-glow);
 }
 
@@ -519,15 +521,16 @@
         }
 
         .photo-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(59, 130, 246, 0.1));
-            opacity: 0;
-            transition: var(--transition);
-        }
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(59, 130, 246, 0.1));
+    opacity: 0;
+    transition: var(--transition);
+    pointer-events: none; /* <-- AÑADE ESTA LÍNEA MÁGICA */
+}
 
         .photo-item:hover .photo-overlay {
             opacity: 1;
