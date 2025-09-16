@@ -264,35 +264,34 @@
             position: relative;
         }
 
-        /* Botón de cambio de cámara centrado abajo */
         .btn-switch {
-            position: absolute;
-            bottom: -60px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 215, 0, 0.9);
-            border: 2px solid var(--white);
-            color: var(--primary);
-            font-size: 1.25rem;
-            border-radius: var(--radius-full);
-            backdrop-filter: blur(10px);
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0;
-            cursor: pointer;
-            box-shadow: var(--shadow-md);
-        }
+    position: absolute;
+    top: 1rem; /* 16px desde arriba */
+    right: 1rem; /* 16px desde la derecha */
+    width: 44px;
+    height: 44px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: var(--white);
+    font-size: 1rem;
+    border-radius: var(--radius-full);
+    backdrop-filter: blur(10px);
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    z-index: 10; /* Para asegurar que esté encima de todo */
+}
 
-        .btn-switch:hover {
-            background: var(--gold);
-            border-color: var(--blue);
-            transform: translateX(-50%) scale(1.1) rotate(180deg);
-            box-shadow: var(--shadow-glow);
-        }
+.btn-switch:hover {
+    background: var(--gold);
+    color: var(--primary);
+    transform: scale(1.1) rotate(180deg);
+    box-shadow: var(--shadow-glow);
+}
 
         .btn {
             display: inline-flex;
@@ -712,7 +711,7 @@
             }
 
             .photo-image {
-                height: 300px; /* Altura reducida en móvil */
+                height: 450px; /* Altura reducida en móvil */
             }
         }
 
@@ -735,6 +734,6 @@
             }
             
             .photo-image {
-                height: 250px;
+                height: 350px;
             }
         }
