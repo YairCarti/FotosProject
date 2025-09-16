@@ -343,9 +343,6 @@
         }
 
         .btn-switch {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
             width: 50px;
             height: 50px;
             background: rgba(0, 0, 0, 0.6);
@@ -359,6 +356,7 @@
             align-items: center;
             justify-content: center;
             padding: 0;
+            margin-left: 1rem;
         }
 
         .btn-switch:hover {
@@ -524,7 +522,7 @@
 
         .photo-image {
             width: 100%;
-            height: 250px;
+            height: 400px;
             object-fit: cover;
             position: relative;
         }
@@ -785,15 +783,15 @@
                         <div class="video-container">
                             <video id="video" autoplay playsinline muted></video>
                             <div class="camera-overlay"></div>
-                            <button id="switchCameraButton" class="btn-switch hidden" title="Cambiar Cámara">
-                                <i class="fas fa-sync-alt"></i>
-                            </button>
                         </div>
                         
                         <div class="camera-controls">
                             <button id="snapButton" class="btn btn-primary">
                                 <i class="fas fa-camera"></i>
                                 Capturar
+                            </button>
+                            <button id="switchCameraButton" class="btn-switch hidden" title="Cambiar Cámara">
+                                <i class="fas fa-sync-alt"></i>
                             </button>
                         </div>
                     </div>
@@ -1184,9 +1182,20 @@
                         img.className = 'photo-image';
                         img.loading = 'lazy';
 
-                        // Overlay para efectos hover
-                        const overlay = document.createElement('div');
-                        overlay.className = 'photo-overlay';
+                        // Marco superpuesto (si existe)
+                        const frameOverlay = document.createElement('img');
+                        frameOverlay.src = 'marco-fiesta.png';
+                        frameOverlay.className = 'photo-frame-overlay';
+                        frameOverlay.style.cssText = `
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 400px;
+                            pointer-events: none;
+                            z-index: 5;
+                            object-fit: cover;
+                        `;
 
                         const actions = document.createElement('div');
                         actions.className = 'photo-actions';
@@ -1198,23 +1207,45 @@
                         downloadLink.href = downloadUrl;
                         downloadLink.download = filename + '.jpg';
                         downloadLink.className = 'download-btn';
+                        downloadLink.target = '_blank'; // Agregar esto para forzar descarga
                         downloadLink.innerHTML = `
                             <i class="fas fa-download"></i>
                             Descargar Foto
                         `;
 
-                        // Agregar efecto de clic
+                        // Agregar efecto de clic y forzar descarga
                         downloadLink.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            
                             downloadLink.style.transform = 'scale(0.95)';
                             setTimeout(() => {
                                 downloadLink.style.transform = 'scale(1)';
                             }, 150);
-                            showNotification('¡Descargando foto mágica! 📸', 'success');
+                            
+                            // Crear descarga manual
+                            fetch(url)
+                                .then(response => response.blob())
+                                .then(blob => {
+                                    const downloadUrl = window.URL.createObjectURL(blob);
+                                    const a = document.createElement('a');
+                                    a.href = downloadUrl;
+                                    a.download = filename + '.jpg';
+                                    document.body.appendChild(a);
+                                    a.click();
+                                    document.body.removeChild(a);
+                                    window.URL.revokeObjectURL(downloadUrl);
+                                    showNotification('¡Descargando foto mágica! 📸', 'success');
+                                })
+                                .catch(error => {
+                                    console.error('Error al descargar:', error);
+                                    showNotification('Error al descargar la foto', 'error');
+                                });
                         });
 
                         actions.appendChild(downloadLink);
                         photoItem.appendChild(img);
                         photoItem.appendChild(overlay);
+                        // photoItem.appendChild(frameOverlay); // Comentado por ahora, descomenta si tienes el marco
                         photoItem.appendChild(actions);
                         slide.appendChild(photoItem);
                         galleryList.appendChild(slide);
