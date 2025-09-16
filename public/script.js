@@ -352,7 +352,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Función de inicialización
     async function initialize() {
-        showNotification('¡Bienvenido a PhotoBooth Pro!', 'success');
+        showNotification('¡Bienvenido!', 'success');
 
         await startCamera();
         await checkForMultipleCameras();
