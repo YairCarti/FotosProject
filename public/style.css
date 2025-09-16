@@ -1,207 +1,500 @@
-body {
-    font-family: sans-serif;
-    background-color: #f0f2f5;
-    color: #333;
+/* ============================================
+   ESTILOS MEJORADOS - TEMÁTICA HARRY POTTER & SONIC
+   ============================================ */
+
+/* Variables CSS para colores temáticos */
+:root {
+    /* Colores de Harry Potter */
+    --hp-gold: #D4AF37;
+    --hp-burgundy: #8B0000;
+    --hp-navy: #1a237e;
+    --hp-bronze: #CD7F32;
+    
+    /* Colores de Sonic */
+    --sonic-blue: #0066CC;
+    --sonic-light-blue: #4DA6FF;
+    --sonic-red: #FF4444;
+    
+    /* Colores base mejorados */
+    --primary-bg: linear-gradient(135deg, #1a237e 0%, #0066CC 50%, #8B0000 100%);
+    --card-bg: rgba(255, 255, 255, 0.95);
+    --text-primary: #2c3e50;
+    --text-secondary: #5a6c7d;
+    --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.1);
+    --shadow-medium: 0 12px 40px rgba(0, 0, 0, 0.15);
+    --border-radius: 16px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Reset y estilos base */
+* {
     margin: 0;
-    padding: 20px;
-    text-align: center;
+    padding: 0;
+    box-sizing: border-box;
 }
+
+body {
+    font-family: 'Segoe UI', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--primary-bg);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Header mejorado */
 header {
-    margin-bottom: 30px;
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 30px 20px;
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(10px);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 40px;
 }
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, var(--hp-gold), var(--sonic-blue), var(--hp-burgundy));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header p {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 0;
+}
+
+/* Contenedor de cámara mejorado */
 .camera-container {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-medium);
     max-width: 500px;
-    margin: 0 auto 30px auto;
+    margin: 0 auto 40px auto;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
 }
+
+/* Decoración temática sutil */
+.camera-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--hp-gold), var(--sonic-blue), var(--hp-burgundy), var(--sonic-light-blue));
+    z-index: 1;
+}
+
+#cameraView {
+    position: relative;
+    border-radius: calc(var(--border-radius) - 8px);
+    overflow: hidden;
+}
+
 video {
     width: 100%;
-    border-radius: 8px;
+    border-radius: calc(var(--border-radius) - 8px);
     background-color: #000;
     transform: scaleX(-1);
+    box-shadow: var(--shadow-soft);
 }
-#snapButton {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 15px;
-    transition: background-color 0.3s;
-}
-#snapButton:hover {
-    background-color: #0056b3;
-}
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 15px;
+
+/* Controles de cámara */
+.camera-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
     margin-top: 20px;
 }
-.gallery img {
+
+/* Botón principal mejorado */
+#snapButton {
+    background: linear-gradient(135deg, var(--sonic-blue), var(--sonic-light-blue));
+    color: white;
+    border: none;
+    padding: 16px 32px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: var(--shadow-soft);
+    position: relative;
+    overflow: hidden;
+}
+
+#snapButton::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
     width: 100%;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    object-fit: cover;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
 }
-.loader {
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #3498db;
+
+#snapButton:hover::before {
+    left: 100%;
+}
+
+#snapButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 102, 204, 0.3);
+}
+
+#snapButton:active {
+    transform: translateY(0);
+}
+
+/* Botón cambiar cámara mejorado */
+#switchCameraButton {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    animation: spin 1s linear infinite;
-    margin: 10px auto;
-}
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    transition: var(--transition);
+    backdrop-filter: blur(10px);
 }
 
-/* ... (todos tus estilos anteriores van aquí) ... */
+#switchCameraButton:hover {
+    background: rgba(0, 102, 204, 0.8);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: scale(1.1);
+}
 
-.hidden {
-    display: none !important;
+/* Vista previa mejorada */
+#previewContainer {
+    text-align: center;
 }
 
 #previewImage {
     width: 100%;
-    border-radius: 8px;
-    margin-bottom: 15px;
+    border-radius: calc(var(--border-radius) - 8px);
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-soft);
+}
+
+#previewContainer p {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    font-weight: 500;
 }
 
 .button-group {
     display: flex;
     justify-content: center;
     gap: 15px;
+    flex-wrap: wrap;
 }
 
 #confirmButton, #cancelButton {
     border: none;
     padding: 12px 24px;
     font-size: 16px;
-    border-radius: 5px;
+    font-weight: 600;
+    border-radius: 50px;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
+    transition: var(--transition);
+    box-shadow: var(--shadow-soft);
+    min-width: 120px;
 }
 
 #confirmButton {
-    background-color: #28a745; /* Verde */
+    background: linear-gradient(135deg, #10B981, #059669);
     color: white;
 }
 
 #cancelButton {
-    background-color: #6c757d; /* Gris */
+    background: linear-gradient(135deg, #6B7280, #4B5563);
     color: white;
 }
 
 #confirmButton:hover {
-    background-color: #218838;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
 }
 
 #cancelButton:hover {
-    background-color: #5a6268;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(107, 114, 128, 0.3);
+}
+
+/* Loader mejorado */
+.loader {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid var(--sonic-blue);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Título de galería */
+main h2 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 30px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(45deg, var(--hp-gold), white);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Carrusel mejorado */
+#image-carousel {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.splide__track {
+    border-radius: var(--border-radius);
+    overflow: hidden;
 }
 
 .splide__slide {
     display: flex;
     justify-content: center;
+    padding: 10px;
 }
 
-/* Y añade esta regla para el contenedor interno */
+/* Contenedor de fotos en el carrusel */
 .photo-container {
-    position: relative; /* ¡MUY IMPORTANTE! */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
+    position: relative;
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-medium);
+    transition: var(--transition);
     width: 100%;
+    max-width: 300px;
+    backdrop-filter: blur(10px);
 }
 
-/* AÑADE ESTA NUEVA REGLA PARA EL MARCO */
+.photo-container:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.photo-container img:not(.photo-frame-overlay) {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Marco superpuesto */
 .photo-frame-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    /* Esto es clave para que puedas hacer clic en el botón "Descargar" a través del marco */
-    pointer-events: none; 
-}
-
-/* También es buena idea asegurarse de que las imágenes se ajusten bien */
-.splide__slide img {
-    width: 100%;
-    height: auto;
+    height: 250px;
+    pointer-events: none;
+    z-index: 5;
     object-fit: cover;
-    border-radius: 8px;
 }
 
-/* Estilos para el nuevo botón de descarga */
+/* Botón de descarga mejorado */
 .download-button {
-    display: inline-block;
-    background-color: #17a2b8; /* Un color cian para diferenciarlo */
+    display: block;
+    background: linear-gradient(135deg, var(--hp-gold), var(--hp-bronze));
     color: white;
-    padding: 8px 16px;
+    padding: 12px 20px;
     text-align: center;
-    border-radius: 5px;
-    text-decoration: none; /* Quitar el subrayado del enlace */
+    text-decoration: none;
     font-size: 14px;
-    transition: background-color 0.3s;
-    width: 80%; /* Hacer que el botón ocupe un buen ancho */
-    position: relative; 
-    z-index: 10; 
+    font-weight: 600;
+    transition: var(--transition);
+    position: relative;
+    z-index: 10;
+    margin: 15px;
+    border-radius: 8px;
+    box-shadow: var(--shadow-soft);
 }
 
 .download-button:hover {
-    background-color: #138496;
+    background: linear-gradient(135deg, var(--hp-bronze), var(--hp-gold));
     color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
 }
 
-/* ... (todos tus estilos anteriores van aquí) ... */
-
-/* Hacemos que el contenedor de la cámara pueda posicionar elementos dentro */
-#cameraView {
-    position: relative;
+/* Controles del carrusel */
+.splide__arrow {
+    background: linear-gradient(135deg, var(--sonic-blue), var(--sonic-light-blue));
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition);
 }
 
-/* Contenedor para los botones debajo del video */
-.camera-controls {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    margin-top: 15px;
+.splide__arrow:hover {
+    background: linear-gradient(135deg, var(--sonic-light-blue), var(--sonic-blue));
+    transform: scale(1.1);
 }
 
-/* Estilos para el nuevo botón de cambio de cámara */
-#switchCameraButton {
-    /* Posicionamiento como un ícono flotante */
+.splide__arrow svg {
+    fill: white;
+}
+
+.splide__pagination__page {
+    background: rgba(255, 255, 255, 0.5);
+    border: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.splide__pagination__page.is-active {
+    background: var(--hp-gold);
+    transform: scale(1.3);
+}
+
+/* Clase de utilidad */
+.hidden {
+    display: none !important;
+}
+
+/* Canvas oculto */
+#canvas {
+    display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+    }
+    
+    header {
+        padding: 20px 15px;
+        margin-bottom: 30px;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .camera-container {
+        padding: 20px;
+        margin-bottom: 30px;
+    }
+    
+    main h2 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+    
+    .button-group {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    #confirmButton, #cancelButton {
+        width: 100%;
+        max-width: 200px;
+    }
+    
+    .photo-container {
+        max-width: 280px;
+    }
+    
+    .splide__arrow {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.8rem;
+    }
+    
+    #snapButton {
+        padding: 14px 28px;
+        font-size: 15px;
+    }
+    
+    .photo-container img:not(.photo-frame-overlay),
+    .photo-frame-overlay {
+        height: 200px;
+    }
+}
+
+/* Animaciones adicionales */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.camera-container,
+#image-carousel {
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* Efectos de hover para las imágenes */
+.photo-container::after {
+    content: '';
     position: absolute;
-    top: 15px;
-    right: 15px;
-
-    /* Estilo visual */
-    background-color: rgba(0, 0, 0, 0.4);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    width: 44px;
-    height: 44px;
-    border-radius: 50%; /* Lo hace circular */
-    font-size: 24px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(212, 175, 55, 0.1), rgba(0, 102, 204, 0.1));
+    opacity: 0;
+    transition: var(--transition);
+    pointer-events: none;
+    z-index: 3;
 }
 
-#switchCameraButton:hover {
-    background-color: rgba(0, 0, 0, 0.6);
+.photo-container:hover::after {
+    opacity: 1;
 }
