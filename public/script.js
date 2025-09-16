@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const previewImage = document.getElementById('previewImage');
     const galleryList = document.getElementById('gallery-list');
     const photoCountElement = document.getElementById('photoCount');
-    
+
     // Variables globales
     const switchCameraButton = document.getElementById('switchCameraButton');
     const BACKEND_URL = '';
@@ -36,21 +36,21 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentStream) {
             currentStream.getTracks().forEach(track => track.stop());
         }
-        
-        const constraints = { 
-            audio: false, 
-            video: { 
+
+        const constraints = {
+            audio: false,
+            video: {
                 facingMode: facingMode,
                 width: { ideal: 1920 },
                 height: { ideal: 1080 }
-            } 
+            }
         };
-        
+
         try {
             const stream = await navigator.mediaDevices.getUserMedia(constraints);
             video.srcObject = stream;
             currentStream = stream;
-            
+
             // Agregar efectos visuales cuando la cámara esté lista
             video.addEventListener('loadedmetadata', () => {
                 video.style.opacity = '0';
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     video.style.opacity = '1';
                 }, 100);
             });
-            
+
         } catch (err) {
             console.error("Error al acceder a la cámara con facingMode: ", err);
             try {
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <i class="fas fa-${type === 'error' ? 'exclamation-triangle' : 'info-circle'}"></i>
             ${message}
         `;
-        
+
         Object.assign(notification.style, {
             position: 'fixed',
             top: '20px',
@@ -100,13 +100,13 @@ document.addEventListener('DOMContentLoaded', () => {
             transition: 'var(--transition)',
             fontWeight: '600'
         });
-        
+
         document.body.appendChild(notification);
-        
+
         setTimeout(() => {
             notification.style.transform = 'translateX(0)';
         }, 100);
-        
+
         setTimeout(() => {
             notification.style.transform = 'translateX(100%)';
             setTimeout(() => {
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const devices = await navigator.mediaDevices.enumerateDevices();
             const videoDevices = devices.filter(device => device.kind === 'videoinput');
-            
+
             if (videoDevices.length > 1) {
                 switchCameraButton.classList.remove('hidden');
             }
@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
             pointer-events: none;
         `;
         document.body.appendChild(flash);
-        
+
         setTimeout(() => {
             document.body.removeChild(flash);
         }, 150);
@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
             photoBlob = blob;
             previewImage.src = URL.createObjectURL(blob);
         }, 'image/jpeg', 0.95);
-        
+
         // Transición suave
         cameraView.style.opacity = '0';
         setTimeout(() => {
@@ -186,17 +186,17 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 50);
         }, 300);
     });
-    
+
     // Cambiar cámara
     switchCameraButton.addEventListener('click', () => {
         facingMode = (facingMode === 'user') ? 'environment' : 'user';
-        
+
         // Animación de rotación
         switchCameraButton.style.transform = 'translateX(-50%) scale(1.1) rotate(180deg)';
         setTimeout(() => {
             switchCameraButton.style.transform = 'translateX(-50%) scale(1) rotate(0deg)';
         }, 300);
-        
+
         startCamera();
         showNotification('Cámara cambiada', 'success');
     });
@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Cancelar foto
     cancelButton.addEventListener('click', () => {
         photoBlob = null;
-        
+
         previewContainer.style.opacity = '0';
         setTimeout(() => {
             previewContainer.classList.add('hidden');
@@ -224,28 +224,28 @@ document.addEventListener('DOMContentLoaded', () => {
     async function uploadPhoto(blob) {
         const formData = new FormData();
         formData.append('photo', blob, 'fiesta-magica.jpg');
-        
+
         // Mostrar loader con animación
         previewContainer.style.opacity = '0';
         setTimeout(() => {
             previewContainer.classList.add('hidden');
             loader.classList.remove('hidden');
         }, 300);
-        
+
         try {
-            const response = await fetch(`${BACKEND_URL}/upload`, { 
-                method: 'POST', 
-                body: formData 
+            const response = await fetch(`${BACKEND_URL}/upload`, {
+                method: 'POST',
+                body: formData
             });
-            
+
             if (!response.ok) {
                 throw new Error('Error al subir la foto');
             }
-            
+
             const result = await response.json();
             showNotification('¡Foto subida con éxito!', 'success');
             await loadPhotos();
-            
+
         } catch (error) {
             console.error('Error al subir la foto:', error);
             showNotification('Error al subir la foto. Inténtalo de nuevo.', 'error');
@@ -262,11 +262,11 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const response = await fetch(`${BACKEND_URL}/photos`);
             if (!response.ok) throw new Error('Error al cargar galería');
-            
+
             const photoUrls = await response.json();
             photoCount = photoUrls.length;
             updatePhotoCount();
-            
+
             galleryList.innerHTML = '';
 
             photoUrls.forEach((url, index) => {
@@ -275,7 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const photoItem = document.createElement('div');
                 photoItem.className = 'photo-item';
-                
+
                 const img = document.createElement('img');
                 img.src = url;
                 img.className = 'photo-image';
@@ -288,13 +288,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 actions.className = 'photo-actions';
 
                 const filename = `fiesta-magica-${index + 1}`;
-                
+
                 // =======================================================
                 // AQUÍ ESTÁ LA ÚNICA CORRECCIÓN
                 // Reemplazamos el <button> y su listener por una etiqueta <a> directa
                 // =======================================================
                 const downloadUrl = url.replace('/upload/', `/upload/fl_attachment:${filename}/`);
-                
+
                 const downloadLink = document.createElement('a');
                 downloadLink.href = downloadUrl;
                 downloadLink.download = filename + '.jpg';
@@ -316,7 +316,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (splide) {
                 splide.destroy(true);
             }
-            
+
             if (photoUrls.length > 0) {
                 splide = new Splide('#image-carousel', {
                     type: 'loop',
@@ -343,7 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                 });
             }
-            
+
         } catch (error) {
             console.error('Error al cargar la galería:', error);
             showNotification('Error al cargar la galería', 'error');
@@ -353,11 +353,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Función de inicialización
     async function initialize() {
         showNotification('¡Bienvenido a PhotoBooth Pro!', 'success');
-        
+
         await startCamera();
         await checkForMultipleCameras();
         await loadPhotos();
-        
+
         // Efectos de entrada
         const elements = document.querySelectorAll('.camera-card, .info-panel');
         elements.forEach((el, index) => {
@@ -370,7 +370,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }, index * 200);
         });
     }
-    
+
     // Agregar estilos adicionales para notificaciones
     const notificationStyles = document.createElement('style');
     notificationStyles.textContent = `
@@ -386,7 +386,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     `;
     document.head.appendChild(notificationStyles);
-    
+
     // Inicializar aplicación 
     initialize();
 });
