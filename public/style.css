@@ -116,11 +116,23 @@ video {
 
 /* Y añade esta regla para el contenedor interno */
 .photo-container {
+    position: relative; /* ¡MUY IMPORTANTE! */
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px; /* Espacio entre la foto y el botón */
-    width: 100%; /* Ocupa todo el espacio del slide */
+    gap: 8px;
+    width: 100%;
+}
+
+/* AÑADE ESTA NUEVA REGLA PARA EL MARCO */
+.photo-frame-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Esto es clave para que puedas hacer clic en el botón "Descargar" a través del marco */
+    pointer-events: none; 
 }
 
 /* También es buena idea asegurarse de que las imágenes se ajusten bien */
@@ -143,6 +155,8 @@ video {
     font-size: 14px;
     transition: background-color 0.3s;
     width: 80%; /* Hacer que el botón ocupe un buen ancho */
+    position: relative; 
+    z-index: 10; 
 }
 
 .download-button:hover {

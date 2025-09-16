@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const previewImage = document.getElementById('previewImage');
     const galleryList = document.getElementById('gallery-list');
     
-    // Nuevos elementos y variables
+    // Variables globales
     const switchCameraButton = document.getElementById('switchCameraButton');
     const BACKEND_URL = '';
     let photoBlob = null;
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Función para verificar si hay múltiples cámaras (versión limpia, sin alertas)
+    // Función para verificar si hay múltiples cámaras
     async function checkForMultipleCameras() {
         try {
             const devices = await navigator.mediaDevices.enumerateDevices();
@@ -56,12 +56,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Listener para tomar foto
+    // --- LISTENER DEL BOTÓN DE TOMAR FOTO (CON LA CORRECCIÓN) ---
     snapButton.addEventListener('click', () => {
         const context = canvas.getContext('2d');
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
-        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        // Si estamos usando la cámara frontal (modo espejo), volteamos el canvas al dibujar
+        if (facingMode === 'user') {
+            context.save();
+            context.translate(canvas.width, 0);
+            context.scale(-1, 1);
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            context.restore();
+        } else {
+            // Si es la cámara trasera, la dibujamos normal
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        }
+
+        // El resto del proceso no cambia
         canvas.toBlob(blob => {
             photoBlob = blob;
             previewImage.src = URL.createObjectURL(blob);
@@ -112,25 +125,44 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!response.ok) throw new Error('No se pudo cargar la galería.');
             const photoUrls = await response.json();
             galleryList.innerHTML = ''; 
-            photoUrls.forEach((url, index) => {
-                const slide = document.createElement('li');
-                slide.className = 'splide__slide';
-                const photoContainer = document.createElement('div');
-                photoContainer.className = 'photo-container';
-                const img = document.createElement('img');
-                img.src = url;
-                const filename = `fiesta_foto_${index + 1}`;
-                const downloadUrl = url.replace('/upload/', `/upload/fl_attachment:${filename}/`);
-                const downloadLink = document.createElement('a');
-                downloadLink.href = downloadUrl;
-                downloadLink.download = filename + '.jpg'; 
-                downloadLink.textContent = 'Descargar';
-                downloadLink.className = 'download-button';
-                photoContainer.appendChild(img);
-                photoContainer.appendChild(downloadLink);
-                slide.appendChild(photoContainer);
-                galleryList.appendChild(slide);
-            });
+            // ... dentro de la función loadPhotos ...
+
+photoUrls.forEach((url, index) => {
+    const slide = document.createElement('li');
+    slide.className = 'splide__slide';
+
+    const photoContainer = document.createElement('div');
+    photoContainer.className = 'photo-container';
+    
+    // 1. La foto del invitado (capa base)
+    const img = document.createElement('img');
+    img.src = url;
+
+    // --- NUEVO: Crear el elemento para la imagen del marco ---
+    const frameOverlay = document.createElement('img');
+    frameOverlay.src = 'marco-fiesta.png'; // Ruta a tu archivo en la carpeta public
+    frameOverlay.className = 'photo-frame-overlay';
+    // --- FIN DE LO NUEVO ---
+
+    // 3. El botón de descarga
+    const filename = `fiesta_foto_${index + 1}`;
+    const downloadUrl = url.replace('/upload/', `/upload/fl_attachment:${filename}/`);
+    const downloadLink = document.createElement('a');
+    downloadLink.href = downloadUrl;
+    downloadLink.download = filename + '.jpg'; 
+    downloadLink.textContent = 'Descargar';
+    downloadLink.className = 'download-button';
+
+    // --- ORDEN DE APILAMIENTO ---
+    photoContainer.appendChild(img);          // Primero la foto
+    photoContainer.appendChild(frameOverlay); // Luego el marco encima
+    photoContainer.appendChild(downloadLink); // Finalmente el botón, encima de todo
+    
+    slide.appendChild(photoContainer);
+    galleryList.appendChild(slide);
+});
+
+
             if (splide) { splide.destroy(true); }
             if (photoUrls.length > 0) {
                  splide = new Splide('#image-carousel', {
