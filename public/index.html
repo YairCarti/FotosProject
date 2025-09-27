@@ -1,24 +1,1237 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PhotoBooth Pro - Fiesta Mágica</title>
-
+    <title>PhotoBooth Pro - Captura Momentos Únicos</title>
+    
     <!-- Iconos y Fuentes -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
     <!-- Splide CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+    
+    <style>
+/* ============================================
+   PHOTOBOOTH PRO - DISEÑO PREMIUM MODERNO
+   ============================================ */
 
+:root {
+    /* Paleta de colores premium */
+    --primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --primary-solid: #667eea;
+    --secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    --success: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    --danger: linear-gradient(135deg, #fc466b 0%, #3f5efb 100%);
+    --warning: linear-gradient(135deg, #fdbb2d 0%, #22c1c3 100%);
+    
+    /* Fondos y superficies */
+    --background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #533483 100%);
+    --surface: rgba(255, 255, 255, 0.08);
+    --surface-hover: rgba(255, 255, 255, 0.12);
+    --surface-active: rgba(255, 255, 255, 0.16);
+    --glass: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    
+    /* Textos */
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.8);
+    --text-tertiary: rgba(255, 255, 255, 0.6);
+    --text-muted: rgba(255, 255, 255, 0.4);
+    
+    /* Sombras mejoradas */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.2);
+    --shadow-xl: 0 16px 32px rgba(0, 0, 0, 0.25);
+    --shadow-glow: 0 0 20px rgba(102, 126, 234, 0.3);
+    --shadow-glow-pink: 0 0 20px rgba(245, 87, 108, 0.3);
+    --shadow-glow-cyan: 0 0 20px rgba(79, 172, 254, 0.3);
+    
+    /* Espaciado y bordes */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --radius-2xl: 24px;
+    --radius-full: 9999px;
+    
+    /* Transiciones */
+    --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Efectos especiales */
+    --blur-sm: blur(4px);
+    --blur-md: blur(8px);
+    --blur-lg: blur(16px);
+    --blur-xl: blur(24px);
+}
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--background);
+    min-height: 100vh;
+    color: var(--text-primary);
+    overflow-x: hidden;
+    line-height: 1.6;
+    position: relative;
+}
+
+/* Fondo animado mejorado */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(245, 87, 108, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(79, 172, 254, 0.1) 0%, transparent 50%);
+    z-index: -1;
+    animation: float-background 30s ease-in-out infinite;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.02) 50%, transparent 70%);
+    z-index: -1;
+    animation: shimmer 20s ease-in-out infinite;
+}
+
+@keyframes float-background {
+    0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
+    33% { transform: translateY(-20px) rotate(1deg) scale(1.05); }
+    66% { transform: translateY(10px) rotate(-1deg) scale(0.98); }
+}
+
+@keyframes shimmer {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.7; }
+}
+
+/* Container principal */
+.main-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+    position: relative;
+}
+
+/* Header premium */
+.hero-header {
+    text-align: center;
+    margin-bottom: 5rem;
+    position: relative;
+    padding: 3rem 0;
+}
+
+.hero-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(3rem, 8vw, 5rem);
+    font-weight: 900;
+    background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 25%, #c7d2fe 50%, #a5b4fc 75%, #8b5cf6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.hero-title i {
+    background: var(--accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+    0%, 100% { filter: drop-shadow(0 0 5px rgba(79, 172, 254, 0.5)); }
+    50% { filter: drop-shadow(0 0 15px rgba(79, 172, 254, 0.8)); }
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    max-width: 700px;
+    margin: 0 auto 3rem;
+    line-height: 1.7;
+}
+
+.hero-icons {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+}
+
+.hero-icon {
+    width: 72px;
+    height: 72px;
+    background: var(--glass);
+    backdrop-filter: var(--blur-md);
+    border-radius: var(--radius-xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    border: 2px solid var(--glass-border);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-icon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: var(--transition-slow);
+}
+
+.hero-icon:hover {
+    transform: translateY(-8px) scale(1.05);
+    background: var(--surface-hover);
+    color: var(--text-primary);
+    box-shadow: var(--shadow-glow);
+    border-color: rgba(102, 126, 234, 0.5);
+}
+
+.hero-icon:hover::before {
+    left: 100%;
+}
+
+.hero-icon:nth-child(2):hover {
+    box-shadow: var(--shadow-glow-pink);
+    border-color: rgba(245, 87, 108, 0.5);
+}
+
+.hero-icon:nth-child(3):hover {
+    box-shadow: var(--shadow-glow-cyan);
+    border-color: rgba(79, 172, 254, 0.5);
+}
+
+/* Grid layout mejorado */
+.app-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    margin-bottom: 5rem;
+    align-items: start;
+}
+
+/* Tarjetas premium */
+.camera-card, .info-panel {
+    background: var(--glass);
+    backdrop-filter: var(--blur-xl);
+    border-radius: var(--radius-2xl);
+    border: 2px solid var(--glass-border);
+    overflow: hidden;
+    box-shadow: var(--shadow-xl);
+    transition: var(--transition-slow);
+    position: relative;
+}
+
+.camera-card::before, .info-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    z-index: 1;
+}
+
+.camera-card:hover, .info-panel:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl), var(--shadow-glow);
+    border-color: rgba(102, 126, 234, 0.4);
+}
+
+.card-header {
+    padding: 2.5rem 2.5rem 1.5rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    position: relative;
+}
+
+.card-icon {
+    width: 56px;
+    height: 56px;
+    background: var(--primary);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.375rem;
+    color: var(--text-primary);
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+}
+
+.card-icon::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.2) 50%, transparent 70%);
+    animation: icon-shine 3s ease-in-out infinite;
+}
+
+@keyframes icon-shine {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(180deg); }
+}
+
+.card-title {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+
+.card-subtitle {
+    font-size: 0.95rem;
+    color: var(--text-tertiary);
+    font-weight: 500;
+    margin-top: 0.25rem;
+}
+
+.card-body {
+    padding: 0 2.5rem 2.5rem;
+    position: relative;
+}
+
+/* Video y controles premium */
+.video-container {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    margin-bottom: 2rem;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+#video {
+    width: 100%;
+    height: auto;
+    display: block;
+    transform: scaleX(-1);
+    border-radius: var(--radius-lg);
+}
+
+.camera-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+        linear-gradient(45deg, transparent 50%, rgba(245, 87, 108, 0.05) 100%);
+    pointer-events: none;
+}
+
+.camera-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    position: relative;
+}
+
+.btn-switch {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 48px;
+    height: 48px;
+    background: var(--glass);
+    border: 2px solid var(--glass-border);
+    color: var(--text-primary);
+    font-size: 1.125rem;
+    border-radius: var(--radius-full);
+    backdrop-filter: var(--blur-md);
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    z-index: 10;
+}
+
+.btn-switch:hover {
+    background: var(--primary-solid);
+    transform: scale(1.1) rotate(180deg);
+    box-shadow: var(--shadow-glow);
+    border-color: transparent;
+}
+
+/* Botones premium */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1rem 2.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    min-width: 160px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: var(--transition-slow);
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: var(--text-primary);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: var(--shadow-xl), var(--shadow-glow);
+}
+
+.btn-success {
+    background: var(--success);
+    color: var(--text-primary);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-success:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: var(--shadow-xl), 0 0 20px rgba(17, 153, 142, 0.4);
+}
+
+.btn-danger {
+    background: var(--danger);
+    color: var(--text-primary);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-danger:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: var(--shadow-xl), 0 0 20px rgba(252, 70, 107, 0.4);
+}
+
+/* Panel de estadísticas premium */
+.stats-grid {
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    background: var(--glass);
+    border-radius: var(--radius-lg);
+    border: 2px solid var(--glass-border);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transition: var(--transition-slow);
+}
+
+.stat-item:hover {
+    transform: translateY(-4px) scale(1.02);
+    background: var(--surface-hover);
+    border-color: rgba(79, 172, 254, 0.4);
+    box-shadow: var(--shadow-glow-cyan);
+}
+
+.stat-item:hover::before {
+    transform: scaleX(1);
+}
+
+.stat-item:nth-child(2):hover {
+    border-color: rgba(245, 87, 108, 0.4);
+    box-shadow: var(--shadow-glow-pink);
+}
+
+.stat-item:nth-child(2)::before {
+    background: var(--secondary);
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    background: var(--accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block;
+}
+
+.stat-item:nth-child(2) .stat-icon {
+    background: var(--secondary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--text-primary);
+    display: block;
+    margin-bottom: 0.5rem;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.stat-label {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Modal de vista previa premium */
+.preview-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: var(--blur-lg);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    animation: fade-in 0.3s ease-out;
+}
+
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.preview-modal {
+    background: var(--glass);
+    backdrop-filter: var(--blur-xl);
+    border-radius: var(--radius-2xl);
+    border: 2px solid var(--glass-border);
+    padding: 3rem;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    box-shadow: var(--shadow-xl);
+    position: relative;
+    overflow: hidden;
+    animation: slide-up 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slide-up {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.preview-modal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent);
+}
+
+.preview-image {
+    width: 100%;
+    border-radius: var(--radius-lg);
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-lg);
+}
+
+.preview-text {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+.preview-text i {
+    background: var(--accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-right: 0.5rem;
+}
+
+.preview-actions {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Sección de galería premium */
+.gallery-section {
+    margin-top: 5rem;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-title {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 900;
+    background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 25%, #c7d2fe 50%, #a5b4fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.section-title i {
+    background: var(--secondary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.section-subtitle {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Carrusel premium */
+#image-carousel {
+    border-radius: var(--radius-2xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-xl);
+    background: var(--glass);
+    backdrop-filter: var(--blur-xl);
+    border: 2px solid var(--glass-border);
+}
+
+.splide__track {
+    border-radius: var(--radius-2xl);
+}
+
+.photo-item {
+    background: var(--text-primary);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    transition: var(--transition-slow);
+    margin: 1.5rem;
+    position: relative;
+}
+
+.photo-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, transparent 50%, rgba(79, 172, 254, 0.1) 100%);
+    opacity: 0;
+    transition: var(--transition);
+    pointer-events: none;
+    z-index: 2;
+}
+
+.photo-item:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-xl), var(--shadow-glow);
+}
+
+.photo-item:hover::before {
+    opacity: 1;
+}
+
+.photo-image {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    position: relative;
+}
+
+.photo-actions {
+    padding: 2rem;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    text-align: center;
+}
+
+.download-btn {
+    background: var(--primary);
+    color: var(--text-primary);
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: var(--radius-full);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    width: 100%;
+    justify-content: center;
+    box-shadow: var(--shadow-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    position: relative;
+    overflow: hidden;
+}
+
+.download-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: var(--transition-slow);
+}
+
+.download-btn:hover::before {
+    left: 100%;
+}
+
+.download-btn:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: var(--shadow-lg), var(--shadow-glow);
+}
+
+/* Loader premium */
+.loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: var(--blur-lg);
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+}
+
+.loader {
+    width: 64px;
+    height: 64px;
+    border: 4px solid transparent;
+    border-top: 4px solid var(--primary-solid);
+    border-right: 4px solid rgba(245, 87, 108, 0.7);
+    border-radius: 50%;
+    animation: spin-gradient 1s linear infinite;
+    position: relative;
+}
+
+.loader::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border-radius: 50%;
+    border: 4px solid transparent;
+    border-bottom: 4px solid rgba(79, 172, 254, 0.5);
+    animation: spin-gradient 1.5s linear infinite reverse;
+}
+
+@keyframes spin-gradient {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loader-text {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    text-align: center;
+    animation: pulse-text 2s ease-in-out infinite;
+}
+
+.loader-text i {
+    background: var(--accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-right: 0.75rem;
+}
+
+@keyframes pulse-text {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+/* Controles del carrusel premium */
+.splide__arrow {
+    background: var(--glass) !important;
+    border: 2px solid var(--glass-border) !important;
+    width: 56px !important;
+    height: 56px !important;
+    border-radius: var(--radius-full) !important;
+    backdrop-filter: var(--blur-md) !important;
+    transition: var(--transition) !important;
+    opacity: 0.9 !important;
+}
+
+.splide__arrow:hover {
+    opacity: 1 !important;
+    background: var(--primary-solid) !important;
+    transform: scale(1.1) !important;
+    box-shadow: var(--shadow-glow) !important;
+    border-color: transparent !important;
+}
+
+.splide__arrow svg {
+    fill: var(--text-primary) !important;
+    width: 20px !important;
+    height: 20px !important;
+}
+
+.splide__pagination {
+    bottom: -4rem !important;
+}
+
+.splide__pagination__page {
+    background: rgba(255, 255, 255, 0.2) !important;
+    width: 12px !important;
+    height: 12px !important;
+    border-radius: var(--radius-full) !important;
+    transition: var(--transition) !important;
+    border: none !important;
+    margin: 0 0.5rem !important;
+}
+
+.splide__pagination__page.is-active {
+    background: var(--primary-solid) !important;
+    transform: scale(1.5) !important;
+    box-shadow: var(--shadow-glow) !important;
+}
+
+/* Notificaciones y mensajes */
+.notification {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    background: var(--glass);
+    backdrop-filter: var(--blur-xl);
+    border: 2px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 2rem;
+    color: var(--text-primary);
+    font-weight: 600;
+    box-shadow: var(--shadow-xl);
+    z-index: 1001;
+    animation: slide-in-right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    max-width: 400px;
+}
+
+.notification.success {
+    border-color: rgba(17, 153, 142, 0.4);
+    background: linear-gradient(135deg, rgba(17, 153, 142, 0.1) 0%, rgba(56, 239, 125, 0.05) 100%);
+    color: #38ef7d;
+}
+
+.notification.error {
+    border-color: rgba(252, 70, 107, 0.4);
+    background: linear-gradient(135deg, rgba(252, 70, 107, 0.1) 0%, rgba(63, 94, 251, 0.05) 100%);
+    color: #fc466b;
+}
+
+.notification.info {
+    border-color: rgba(79, 172, 254, 0.4);
+    background: linear-gradient(135deg, rgba(79, 172, 254, 0.1) 0%, rgba(0, 242, 254, 0.05) 100%);
+    color: #4facfe;
+}
+
+@keyframes slide-in-right {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Efectos de hover mejorados */
+.btn, .hero-icon, .stat-item, .photo-item {
+    cursor: pointer;
+}
+
+.btn:active {
+    transform: scale(0.98) !important;
+}
+
+.hero-icon:active, .stat-item:active {
+    transform: scale(0.95) !important;
+}
+
+/* Estados de carga */
+.loading {
+    position: relative;
+    overflow: hidden;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* Utilities mejoradas */
+.hidden {
+    display: none !important;
+}
+
+.invisible {
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+.blur {
+    filter: blur(4px) !important;
+}
+
+#canvas {
+    display: none;
+}
+
+/* Responsive Design Premium */
+@media (max-width: 1200px) {
+    .app-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-container {
+        padding: 1rem;
+    }
+
+    .hero-header {
+        margin-bottom: 3rem;
+        padding: 2rem 0;
+    }
+
+    .hero-title {
+        font-size: clamp(2rem, 8vw, 3rem);
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .hero-icons {
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+
+    .hero-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.25rem;
+    }
+
+    .card-header {
+        padding: 2rem 2rem 1rem;
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+
+    .card-body {
+        padding: 0 2rem 2rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 1.5rem;
+        gap: 1.5rem;
+    }
+
+    .stat-item {
+        padding: 1.5rem 1rem;
+    }
+
+    .stat-icon {
+        font-size: 2rem;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+    }
+
+    .photo-image {
+        height: 300px;
+    }
+
+    .btn {
+        min-width: 140px;
+        padding: 0.875rem 2rem;
+    }
+
+    .preview-modal {
+        padding: 2rem;
+        margin: 1rem;
+    }
+
+    .preview-actions {
+        flex-direction: column;
+    }
+
+    .section-title {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .notification {
+        top: 1rem;
+        right: 1rem;
+        left: 1rem;
+        max-width: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 0.95rem;
+    }
+
+    .hero-icons {
+        gap: 0.75rem;
+    }
+
+    .hero-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.125rem;
+    }
+
+    .camera-controls {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .btn {
+        width: 100%;
+        min-width: auto;
+        padding: 1rem;
+    }
+
+    .photo-item {
+        margin: 1rem;
+    }
+
+    .photo-image {
+        height: 250px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .stat-item {
+        padding: 1.25rem;
+    }
+
+    .card-header {
+        padding: 1.5rem 1.5rem 1rem;
+    }
+
+    .card-body {
+        padding: 0 1.5rem 1.5rem;
+    }
+
+    .preview-modal {
+        padding: 1.5rem;
+    }
+}
+
+/* Animaciones adicionales */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+.animate-rotate {
+    animation: rotate 2s linear infinite;
+}
+
+.animate-pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Modo de alta legibilidad */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Mejoras de accesibilidad */
+.btn:focus,
+.hero-icon:focus,
+.stat-item:focus {
+    outline: 2px solid var(--primary-solid);
+    outline-offset: 2px;
+}
+
+.btn:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* Soporte para modo oscuro del sistema */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text-primary: #ffffff;
+        --text-secondary: rgba(255, 255, 255, 0.8);
+        --text-tertiary: rgba(255, 255, 255, 0.6);
+        --text-muted: rgba(255, 255, 255, 0.4);
+    }
+}
+    </style>
 </head>
 
 <body>
@@ -30,19 +1243,19 @@
                 CAPTURA Y COMPARTE!
             </h1>
             <p class="hero-subtitle">
-                ¡Captura los mejores momentos de la fiesta y compartelo con los invitados!
+                ¡Captura los mejores momentos de la fiesta y compártelos con los invitados al instante!
             </p>
             <div class="hero-icons">
-                <div class="hero-icon" title="Magia">
+                <div class="hero-icon" title="Magia Instantánea">
                     <i class="fas fa-hat-wizard"></i>
                 </div>
-                <div class="hero-icon" title="Velocidad">
+                <div class="hero-icon" title="Velocidad Profesional">
                     <i class="fas fa-bolt"></i>
                 </div>
-                <div class="hero-icon" title="Cámara">
+                <div class="hero-icon" title="Calidad Premium">
                     <i class="fas fa-camera"></i>
                 </div>
-                <div class="hero-icon" title="Diversión">
+                <div class="hero-icon" title="Diversión Garantizada">
                     <i class="fas fa-star"></i>
                 </div>
             </div>
@@ -58,7 +1271,7 @@
                     </div>
                     <div>
                         <h2 class="card-title">Estudio Fotográfico</h2>
-                        <p class="card-subtitle">Toma tu foto</p>
+                        <p class="card-subtitle">Toma tu foto perfecta</p>
                     </div>
                 </div>
                 <div class="card-body">
@@ -75,13 +1288,55 @@
                         <div class="camera-controls">
                             <button id="snapButton" class="btn btn-primary">
                                 <i class="fas fa-camera"></i>
-                                Capturar
+                                Capturar Momento
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Panel de Información -->
+            <div class="info-panel">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div>
+                        <h2 class="card-title">Estadísticas Live</h2>
+                        <p class="card-subtitle">Datos en tiempo real</p>
+                    </div>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <i class="fas fa-images"></i>
+                        </div>
+                        <span class="stat-number" id="photoCount">0</span>
+                        <span class="stat-label">Fotos Tomadas</span>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <span class="stat-number">25+</span>
+                        <span class="stat-label">Invitados</span>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <i class="fas fa-magic"></i>
+                        </div>
+                        <span class="stat-number">∞</span>
+                        <span class="stat-label">Magia</span>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Diversión</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Vista Previa Modal -->
@@ -99,7 +1354,7 @@
                     </button>
                     <button id="cancelButton" class="btn btn-danger">
                         <i class="fas fa-times"></i>
-                        Repetir
+                        Repetir Toma
                     </button>
                 </div>
             </div>
@@ -122,7 +1377,7 @@
                     Galería Mágica
                 </h2>
                 <p class="section-subtitle">
-                    Descubre todos los momentos capturados de esta épica fiesta
+                    Descubre todos los momentos épicos capturados en esta increíble fiesta
                 </p>
             </div>
 
@@ -135,56 +1390,296 @@
             </div>
         </section>
 
-        <!-- Panel de Información -->
-            <div class="info-panel">
-                <div class="card-header">
-                    <div class="card-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <div>
-                        <h2 class="card-title">Estadísticas</h2>
-                        <p class="card-subtitle">Datos de la fiesta</p>
-                    </div>
-                </div>
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <div class="stat-icon">
-                            <i class="fas fa-images"></i>
-                        </div>
-                        <span class="stat-number" id="photoCount">0</span>
-                        <span class="stat-label">Fotos</span>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <span class="stat-number">25+</span>
-                        <span class="stat-label">Invitados</span>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-icon">
-                            <i class="fas fa-magic"></i>
-                        </div>
-                        <span class="stat-number">∞</span>
-                        <span class="stat-label">Magia</span>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-icon">
-                            <i class="fas fa-bolt"></i>
-                        </div>
-                        <span class="stat-number">100%</span>
-                        <span class="stat-label">Diversión</span>
-                    </div>
-                </div>
-            </div>
-
         <!-- Canvas oculto -->
         <canvas id="canvas"></canvas>
     </div>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
-    <script src="script.js"></script>
-</body>
+    <script>
+        // PhotoBooth Pro - JavaScript Premium
+        class PhotoBoothPro {
+            constructor() {
+                this.video = document.getElementById('video');
+                this.canvas = document.getElementById('canvas');
+                this.snapButton = document.getElementById('snapButton');
+                this.switchCameraButton = document.getElementById('switchCameraButton');
+                this.previewContainer = document.getElementById('previewContainer');
+                this.previewImage = document.getElementById('previewImage');
+                this.confirmButton = document.getElementById('confirmButton');
+                this.cancelButton = document.getElementById('cancelButton');
+                this.loader = document.getElementById('loader');
+                this.photoCount = document.getElementById('photoCount');
+                this.galleryList = document.getElementById('gallery-list');
+                
+                this.currentStream = null;
+                this.facingMode = 'user';
+                this.devices = [];
+                this.currentDeviceIndex = 0;
+                this.photos = [];
+                this.splide = null;
+                
+                this.init();
+            }
 
+            async init() {
+                try {
+                    await this.getDevices();
+                    await this.startCamera();
+                    this.setupEventListeners();
+                    this.initCarousel();
+                    this.showNotification('¡PhotoBooth Pro iniciado correctamente!', 'success');
+                } catch (error) {
+                    console.error('Error initializing PhotoBooth:', error);
+                    this.showNotification('Error al inicializar la cámara', 'error');
+                }
+            }
+
+            async getDevices() {
+                try {
+                    const devices = await navigator.mediaDevices.enumerateDevices();
+                    this.devices = devices.filter(device => device.kind === 'videoinput');
+                    
+                    if (this.devices.length > 1) {
+                        this.switchCameraButton.classList.remove('hidden');
+                    }
+                } catch (error) {
+                    console.error('Error getting devices:', error);
+                }
+            }
+
+            async startCamera() {
+                try {
+                    if (this.currentStream) {
+                        this.currentStream.getTracks().forEach(track => track.stop());
+                    }
+
+                    const constraints = {
+                        video: {
+                            facingMode: this.facingMode,
+                            width: { ideal: 1280 },
+                            height: { ideal: 720 }
+                        }
+                    };
+
+                    this.currentStream = await navigator.mediaDevices.getUserMedia(constraints);
+                    this.video.srcObject = this.currentStream;
+                } catch (error) {
+                    console.error('Error starting camera:', error);
+                    this.showNotification('No se pudo acceder a la cámara', 'error');
+                }
+            }
+
+            setupEventListeners() {
+                this.snapButton.addEventListener('click', () => this.takePhoto());
+                this.switchCameraButton.addEventListener('click', () => this.switchCamera());
+                this.confirmButton.addEventListener('click', () => this.confirmPhoto());
+                this.cancelButton.addEventListener('click', () => this.cancelPhoto());
+                
+                // Keyboard shortcuts
+                document.addEventListener('keydown', (e) => {
+                    if (e.code === 'Space' && !this.previewContainer.classList.contains('hidden')) {
+                        e.preventDefault();
+                        this.takePhoto();
+                    }
+                    if (e.code === 'Enter' && !this.previewContainer.classList.contains('hidden')) {
+                        e.preventDefault();
+                        this.confirmPhoto();
+                    }
+                    if (e.code === 'Escape' && !this.previewContainer.classList.contains('hidden')) {
+                        e.preventDefault();
+                        this.cancelPhoto();
+                    }
+                });
+            }
+
+            async switchCamera() {
+                this.facingMode = this.facingMode === 'user' ? 'environment' : 'user';
+                this.switchCameraButton.style.animation = 'spin-gradient 0.5s ease-in-out';
+                await this.startCamera();
+                setTimeout(() => {
+                    this.switchCameraButton.style.animation = '';
+                }, 500);
+            }
+
+            takePhoto() {
+                try {
+                    // Add photo capture animation
+                    this.video.style.filter = 'brightness(1.5)';
+                    setTimeout(() => {
+                        this.video.style.filter = '';
+                    }, 150);
+
+                    // Flash effect
+                    const flash = document.createElement('div');
+                    flash.style.cssText = `
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background: white;
+                        z-index: 9999;
+                        opacity: 0.8;
+                        pointer-events: none;
+                    `;
+                    document.body.appendChild(flash);
+                    
+                    setTimeout(() => {
+                        document.body.removeChild(flash);
+                    }, 100);
+
+                    // Capture photo
+                    const context = this.canvas.getContext('2d');
+                    this.canvas.width = this.video.videoWidth;
+                    this.canvas.height = this.video.videoHeight;
+                    
+                    // Mirror effect for front camera
+                    if (this.facingMode === 'user') {
+                        context.scale(-1, 1);
+                        context.drawImage(this.video, -this.canvas.width, 0);
+                    } else {
+                        context.drawImage(this.video, 0, 0);
+                    }
+
+                    const dataURL = this.canvas.toDataURL('image/jpeg', 0.9);
+                    this.previewImage.src = dataURL;
+                    this.previewContainer.classList.remove('hidden');
+
+                } catch (error) {
+                    console.error('Error taking photo:', error);
+                    this.showNotification('Error al capturar la foto', 'error');
+                }
+            }
+
+            confirmPhoto() {
+                this.showLoader();
+                
+                // Simulate upload delay
+                setTimeout(() => {
+                    const timestamp = new Date().toLocaleString();
+                    const photo = {
+                        src: this.previewImage.src,
+                        timestamp: timestamp,
+                        id: Date.now()
+                    };
+                    
+                    this.photos.push(photo);
+                    this.addPhotoToGallery(photo);
+                    this.updatePhotoCount();
+                    this.hideLoader();
+                    this.previewContainer.classList.add('hidden');
+                    
+                    this.showNotification('¡Foto subida exitosamente!', 'success');
+                }, 1500);
+            }
+
+            cancelPhoto() {
+                this.previewContainer.classList.add('hidden');
+                this.showNotification('Foto descartada', 'info');
+            }
+
+            addPhotoToGallery(photo) {
+                const photoItem = document.createElement('li');
+                photoItem.className = 'splide__slide';
+                photoItem.innerHTML = `
+                    <div class="photo-item" data-photo-id="${photo.id}">
+                        <div style="position: relative;">
+                            <img src="${photo.src}" alt="Foto ${photo.timestamp}" class="photo-image">
+                            <div class="photo-overlay"></div>
+                        </div>
+                        <div class="photo-actions">
+                            <a href="${photo.src}" download="photobooth-${photo.id}.jpg" class="download-btn">
+                                <i class="fas fa-download"></i>
+                                Descargar Foto
+                            </a>
+                        </div>
+                    </div>
+                `;
+                
+                this.galleryList.appendChild(photoItem);
+                
+                if (this.splide) {
+                    this.splide.refresh();
+                }
+                
+                // Scroll to new photo
+                setTimeout(() => {
+                    if (this.splide) {
+                        this.splide.go(this.photos.length - 1);
+                    }
+                }, 100);
+            }
+
+            updatePhotoCount() {
+                this.photoCount.textContent = this.photos.length;
+                this.photoCount.style.animation = 'pulse 0.5s ease-in-out';
+                setTimeout(() => {
+                    this.photoCount.style.animation = '';
+                }, 500);
+            }
+
+            initCarousel() {
+                this.splide = new Splide('#image-carousel', {
+                    type: 'loop',
+                    perPage: 3,
+                    perMove: 1,
+                    gap: '1rem',
+                    autoplay: false,
+                    pauseOnHover: true,
+                    breakpoints: {
+                        1024: { perPage: 2 },
+                        768: { perPage: 1 }
+                    }
+                });
+                
+                this.splide.mount();
+            }
+
+            showLoader() {
+                this.loader.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+
+            hideLoader() {
+                this.loader.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+
+            showNotification(message, type = 'info') {
+                // Remove existing notifications
+                const existingNotifications = document.querySelectorAll('.notification');
+                existingNotifications.forEach(notification => notification.remove());
+
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                notification.innerHTML = `
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                    ${message}
+                `;
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.style.animation = 'slide-in-right 0.4s cubic-bezier(0.4, 0, 0.2, 1) reverse';
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 400);
+                }, 3000);
+            }
+        }
+
+        // Initialize PhotoBooth when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new PhotoBoothPro();
+        });
+
+        // Add some sample photos for demo
+        setTimeout(() => {
+            const demoPhotos = [
+                'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSJ1cmwoI3BhaW50MF9saW5lYXJfMF8xKSIvPgo8dGV4dCB4PSIyMDAiIHk9IjE1MCIgZmlsbD0id2hpdGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkZvdG8gRGVtbzwvdGV4dD4KPHN2ZyB4PSIxNzAiIHk9IjEwMCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiBmaWxsPSJyZ2JhKDI1NSwgMjU1LCAyNTUsIDAuNSkiPgo8Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIyNSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIi8+CjxjaXJjbGUgY3g9IjMwIiBjeT0iMzAiIHI9IjE1IiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4KPGN5PjEwIGN4PSIyMCIgZmlsbD0icmdiYSgyNTUsIDI1NSwgMjU1LCAwLjMpIi8+Cjxkefs+CjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQwX2xpbmVhcl8wXzEiIHgxPSIwIiB5MT0iMCIgeDI9IjQwMCIgeTI9IjMwMCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgo8c3RvcCBzdG9wLWNvbG9yPSIjNjY3ZWVhIi8+CjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzc2NGJhMiIvPgo8L2xpbmVhckdyYWRpZW50Pgo8L2RlZnM+Cjwvc3ZnPgo='
+            ];
+        }, 2000);
+    </script>
+</body>
 </html>
