@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PhotoBooth Pro - Captura Momentos Únicos</title>
-    
+    <title>PhotoBooth Pro - Fiesta Mágica</title>
+
     <!-- Iconos y Fuentes -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    
+
     <!-- Splide CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
-    
+
     <style>
 /* ============================================
    PHOTOBOOTH PRO - DISEÑO PREMIUM MODERNO
@@ -246,7 +247,7 @@ body::after {
 /* Grid layout mejorado */
 .app-grid {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 2fr;
     gap: 3rem;
     margin-bottom: 5rem;
     align-items: start;
@@ -381,8 +382,9 @@ body::after {
 
 .btn-switch {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
     width: 48px;
     height: 48px;
     background: var(--glass);
@@ -403,7 +405,7 @@ body::after {
 
 .btn-switch:hover {
     background: var(--primary-solid);
-    transform: scale(1.1) rotate(180deg);
+    transform: translateX(-50%) scale(1.1) rotate(180deg);
     box-shadow: var(--shadow-glow);
     border-color: transparent;
 }
@@ -479,6 +481,10 @@ body::after {
 }
 
 /* Panel de estadísticas premium */
+.info-panel {
+    grid-area: 1 / 2 / 2 / 3;
+}
+
 .stats-grid {
     padding: 2rem;
     display: grid;
@@ -739,6 +745,22 @@ body::after {
     opacity: 1;
 }
 
+.photo-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(37, 99, 235, 0.1), rgba(59, 130, 246, 0.05));
+    opacity: 0;
+    transition: var(--transition);
+    pointer-events: none;
+}
+
+.photo-item:hover .photo-overlay {
+    opacity: 1;
+}
+
 .photo-image {
     width: 100%;
     height: 400px;
@@ -908,7 +930,7 @@ body::after {
     box-shadow: var(--shadow-glow) !important;
 }
 
-/* Notificaciones y mensajes */
+/* Notificaciones y mensajes premium */
 .notification {
     position: fixed;
     top: 2rem;
@@ -928,19 +950,19 @@ body::after {
 
 .notification.success {
     border-color: rgba(17, 153, 142, 0.4);
-    background: linear-gradient(135deg, rgba(17, 153, 142, 0.1) 0%, rgba(56, 239, 125, 0.05) 100%);
+    background: linear-gradient(135deg, rgba(17, 153, 142, 0.15) 0%, rgba(56, 239, 125, 0.1) 100%);
     color: #38ef7d;
 }
 
 .notification.error {
     border-color: rgba(252, 70, 107, 0.4);
-    background: linear-gradient(135deg, rgba(252, 70, 107, 0.1) 0%, rgba(63, 94, 251, 0.05) 100%);
+    background: linear-gradient(135deg, rgba(252, 70, 107, 0.15) 0%, rgba(63, 94, 251, 0.1) 100%);
     color: #fc466b;
 }
 
 .notification.info {
     border-color: rgba(79, 172, 254, 0.4);
-    background: linear-gradient(135deg, rgba(79, 172, 254, 0.1) 0%, rgba(0, 242, 254, 0.05) 100%);
+    background: linear-gradient(135deg, rgba(79, 172, 254, 0.15) 0%, rgba(0, 242, 254, 0.1) 100%);
     color: #4facfe;
 }
 
@@ -953,41 +975,6 @@ body::after {
         transform: translateX(0);
         opacity: 1;
     }
-}
-
-/* Efectos de hover mejorados */
-.btn, .hero-icon, .stat-item, .photo-item {
-    cursor: pointer;
-}
-
-.btn:active {
-    transform: scale(0.98) !important;
-}
-
-.hero-icon:active, .stat-item:active {
-    transform: scale(0.95) !important;
-}
-
-/* Estados de carga */
-.loading {
-    position: relative;
-    overflow: hidden;
-}
-
-.loading::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    animation: loading-shimmer 1.5s infinite;
-}
-
-@keyframes loading-shimmer {
-    0% { left: -100%; }
-    100% { left: 100%; }
 }
 
 /* Utilities mejoradas */
@@ -1011,7 +998,7 @@ body::after {
 /* Responsive Design Premium */
 @media (max-width: 1200px) {
     .app-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
         gap: 2rem;
     }
 
@@ -1051,6 +1038,11 @@ body::after {
         width: 60px;
         height: 60px;
         font-size: 1.25rem;
+    }
+
+    .app-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
     }
 
     .card-header {
@@ -1173,6 +1165,40 @@ body::after {
     }
 }
 
+/* Mejoras de accesibilidad */
+.btn:focus,
+.hero-icon:focus,
+.stat-item:focus {
+    outline: 2px solid var(--primary-solid);
+    outline-offset: 2px;
+}
+
+.btn:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* Estados de carga */
+.loading {
+    position: relative;
+    overflow: hidden;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
 /* Animaciones adicionales */
 @keyframes float {
     0%, 100% { transform: translateY(0px); }
@@ -1189,46 +1215,12 @@ body::after {
     50% { transform: scale(1.05); }
 }
 
-.animate-float {
-    animation: float 3s ease-in-out infinite;
-}
-
-.animate-rotate {
-    animation: rotate 2s linear infinite;
-}
-
-.animate-pulse {
-    animation: pulse 2s ease-in-out infinite;
-}
-
 /* Modo de alta legibilidad */
 @media (prefers-reduced-motion: reduce) {
     * {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
-    }
-}
-
-/* Mejoras de accesibilidad */
-.btn:focus,
-.hero-icon:focus,
-.stat-item:focus {
-    outline: 2px solid var(--primary-solid);
-    outline-offset: 2px;
-}
-
-.btn:focus:not(:focus-visible) {
-    outline: none;
-}
-
-/* Soporte para modo oscuro del sistema */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --text-primary: #ffffff;
-        --text-secondary: rgba(255, 255, 255, 0.8);
-        --text-tertiary: rgba(255, 255, 255, 0.6);
-        --text-muted: rgba(255, 255, 255, 0.4);
     }
 }
     </style>
@@ -1243,19 +1235,19 @@ body::after {
                 CAPTURA Y COMPARTE!
             </h1>
             <p class="hero-subtitle">
-                ¡Captura los mejores momentos de la fiesta y compártelos con los invitados al instante!
+                ¡Captura los mejores momentos de la fiesta y compártelo con los invitados!
             </p>
             <div class="hero-icons">
-                <div class="hero-icon" title="Magia Instantánea">
+                <div class="hero-icon" title="Magia">
                     <i class="fas fa-hat-wizard"></i>
                 </div>
-                <div class="hero-icon" title="Velocidad Profesional">
+                <div class="hero-icon" title="Velocidad">
                     <i class="fas fa-bolt"></i>
                 </div>
-                <div class="hero-icon" title="Calidad Premium">
+                <div class="hero-icon" title="Cámara">
                     <i class="fas fa-camera"></i>
                 </div>
-                <div class="hero-icon" title="Diversión Garantizada">
+                <div class="hero-icon" title="Diversión">
                     <i class="fas fa-star"></i>
                 </div>
             </div>
@@ -1271,7 +1263,7 @@ body::after {
                     </div>
                     <div>
                         <h2 class="card-title">Estudio Fotográfico</h2>
-                        <p class="card-subtitle">Toma tu foto perfecta</p>
+                        <p class="card-subtitle">Toma tu foto</p>
                     </div>
                 </div>
                 <div class="card-body">
@@ -1288,52 +1280,9 @@ body::after {
                         <div class="camera-controls">
                             <button id="snapButton" class="btn btn-primary">
                                 <i class="fas fa-camera"></i>
-                                Capturar Momento
+                                Capturar
                             </button>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Panel de Información -->
-            <div class="info-panel">
-                <div class="card-header">
-                    <div class="card-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <div>
-                        <h2 class="card-title">Estadísticas Live</h2>
-                        <p class="card-subtitle">Datos en tiempo real</p>
-                    </div>
-                </div>
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <div class="stat-icon">
-                            <i class="fas fa-images"></i>
-                        </div>
-                        <span class="stat-number" id="photoCount">0</span>
-                        <span class="stat-label">Fotos Tomadas</span>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <span class="stat-number">25+</span>
-                        <span class="stat-label">Invitados</span>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-icon">
-                            <i class="fas fa-magic"></i>
-                        </div>
-                        <span class="stat-number">∞</span>
-                        <span class="stat-label">Magia</span>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-icon">
-                            <i class="fas fa-heart"></i>
-                        </div>
-                        <span class="stat-number">100%</span>
-                        <span class="stat-label">Diversión</span>
                     </div>
                 </div>
             </div>
@@ -1354,7 +1303,7 @@ body::after {
                     </button>
                     <button id="cancelButton" class="btn btn-danger">
                         <i class="fas fa-times"></i>
-                        Repetir Toma
+                        Repetir
                     </button>
                 </div>
             </div>
@@ -1377,7 +1326,7 @@ body::after {
                     Galería Mágica
                 </h2>
                 <p class="section-subtitle">
-                    Descubre todos los momentos épicos capturados en esta increíble fiesta
+                    Descubre todos los momentos capturados de esta épica fiesta
                 </p>
             </div>
 
@@ -1390,296 +1339,56 @@ body::after {
             </div>
         </section>
 
+        <!-- Panel de Información -->
+        <div class="info-panel">
+            <div class="card-header">
+                <div class="card-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div>
+                    <h2 class="card-title">Estadísticas</h2>
+                    <p class="card-subtitle">Datos de la fiesta</p>
+                </div>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-images"></i>
+                    </div>
+                    <span class="stat-number" id="photoCount">0</span>
+                    <span class="stat-label">Fotos</span>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <span class="stat-number">25+</span>
+                    <span class="stat-label">Invitados</span>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <span class="stat-number">∞</span>
+                    <span class="stat-label">Magia</span>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Diversión</span>
+                </div>
+            </div>
+        </div>
+
         <!-- Canvas oculto -->
         <canvas id="canvas"></canvas>
     </div>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
-    <script>
-        // PhotoBooth Pro - JavaScript Premium
-        class PhotoBoothPro {
-            constructor() {
-                this.video = document.getElementById('video');
-                this.canvas = document.getElementById('canvas');
-                this.snapButton = document.getElementById('snapButton');
-                this.switchCameraButton = document.getElementById('switchCameraButton');
-                this.previewContainer = document.getElementById('previewContainer');
-                this.previewImage = document.getElementById('previewImage');
-                this.confirmButton = document.getElementById('confirmButton');
-                this.cancelButton = document.getElementById('cancelButton');
-                this.loader = document.getElementById('loader');
-                this.photoCount = document.getElementById('photoCount');
-                this.galleryList = document.getElementById('gallery-list');
-                
-                this.currentStream = null;
-                this.facingMode = 'user';
-                this.devices = [];
-                this.currentDeviceIndex = 0;
-                this.photos = [];
-                this.splide = null;
-                
-                this.init();
-            }
-
-            async init() {
-                try {
-                    await this.getDevices();
-                    await this.startCamera();
-                    this.setupEventListeners();
-                    this.initCarousel();
-                    this.showNotification('¡PhotoBooth Pro iniciado correctamente!', 'success');
-                } catch (error) {
-                    console.error('Error initializing PhotoBooth:', error);
-                    this.showNotification('Error al inicializar la cámara', 'error');
-                }
-            }
-
-            async getDevices() {
-                try {
-                    const devices = await navigator.mediaDevices.enumerateDevices();
-                    this.devices = devices.filter(device => device.kind === 'videoinput');
-                    
-                    if (this.devices.length > 1) {
-                        this.switchCameraButton.classList.remove('hidden');
-                    }
-                } catch (error) {
-                    console.error('Error getting devices:', error);
-                }
-            }
-
-            async startCamera() {
-                try {
-                    if (this.currentStream) {
-                        this.currentStream.getTracks().forEach(track => track.stop());
-                    }
-
-                    const constraints = {
-                        video: {
-                            facingMode: this.facingMode,
-                            width: { ideal: 1280 },
-                            height: { ideal: 720 }
-                        }
-                    };
-
-                    this.currentStream = await navigator.mediaDevices.getUserMedia(constraints);
-                    this.video.srcObject = this.currentStream;
-                } catch (error) {
-                    console.error('Error starting camera:', error);
-                    this.showNotification('No se pudo acceder a la cámara', 'error');
-                }
-            }
-
-            setupEventListeners() {
-                this.snapButton.addEventListener('click', () => this.takePhoto());
-                this.switchCameraButton.addEventListener('click', () => this.switchCamera());
-                this.confirmButton.addEventListener('click', () => this.confirmPhoto());
-                this.cancelButton.addEventListener('click', () => this.cancelPhoto());
-                
-                // Keyboard shortcuts
-                document.addEventListener('keydown', (e) => {
-                    if (e.code === 'Space' && !this.previewContainer.classList.contains('hidden')) {
-                        e.preventDefault();
-                        this.takePhoto();
-                    }
-                    if (e.code === 'Enter' && !this.previewContainer.classList.contains('hidden')) {
-                        e.preventDefault();
-                        this.confirmPhoto();
-                    }
-                    if (e.code === 'Escape' && !this.previewContainer.classList.contains('hidden')) {
-                        e.preventDefault();
-                        this.cancelPhoto();
-                    }
-                });
-            }
-
-            async switchCamera() {
-                this.facingMode = this.facingMode === 'user' ? 'environment' : 'user';
-                this.switchCameraButton.style.animation = 'spin-gradient 0.5s ease-in-out';
-                await this.startCamera();
-                setTimeout(() => {
-                    this.switchCameraButton.style.animation = '';
-                }, 500);
-            }
-
-            takePhoto() {
-                try {
-                    // Add photo capture animation
-                    this.video.style.filter = 'brightness(1.5)';
-                    setTimeout(() => {
-                        this.video.style.filter = '';
-                    }, 150);
-
-                    // Flash effect
-                    const flash = document.createElement('div');
-                    flash.style.cssText = `
-                        position: fixed;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                        background: white;
-                        z-index: 9999;
-                        opacity: 0.8;
-                        pointer-events: none;
-                    `;
-                    document.body.appendChild(flash);
-                    
-                    setTimeout(() => {
-                        document.body.removeChild(flash);
-                    }, 100);
-
-                    // Capture photo
-                    const context = this.canvas.getContext('2d');
-                    this.canvas.width = this.video.videoWidth;
-                    this.canvas.height = this.video.videoHeight;
-                    
-                    // Mirror effect for front camera
-                    if (this.facingMode === 'user') {
-                        context.scale(-1, 1);
-                        context.drawImage(this.video, -this.canvas.width, 0);
-                    } else {
-                        context.drawImage(this.video, 0, 0);
-                    }
-
-                    const dataURL = this.canvas.toDataURL('image/jpeg', 0.9);
-                    this.previewImage.src = dataURL;
-                    this.previewContainer.classList.remove('hidden');
-
-                } catch (error) {
-                    console.error('Error taking photo:', error);
-                    this.showNotification('Error al capturar la foto', 'error');
-                }
-            }
-
-            confirmPhoto() {
-                this.showLoader();
-                
-                // Simulate upload delay
-                setTimeout(() => {
-                    const timestamp = new Date().toLocaleString();
-                    const photo = {
-                        src: this.previewImage.src,
-                        timestamp: timestamp,
-                        id: Date.now()
-                    };
-                    
-                    this.photos.push(photo);
-                    this.addPhotoToGallery(photo);
-                    this.updatePhotoCount();
-                    this.hideLoader();
-                    this.previewContainer.classList.add('hidden');
-                    
-                    this.showNotification('¡Foto subida exitosamente!', 'success');
-                }, 1500);
-            }
-
-            cancelPhoto() {
-                this.previewContainer.classList.add('hidden');
-                this.showNotification('Foto descartada', 'info');
-            }
-
-            addPhotoToGallery(photo) {
-                const photoItem = document.createElement('li');
-                photoItem.className = 'splide__slide';
-                photoItem.innerHTML = `
-                    <div class="photo-item" data-photo-id="${photo.id}">
-                        <div style="position: relative;">
-                            <img src="${photo.src}" alt="Foto ${photo.timestamp}" class="photo-image">
-                            <div class="photo-overlay"></div>
-                        </div>
-                        <div class="photo-actions">
-                            <a href="${photo.src}" download="photobooth-${photo.id}.jpg" class="download-btn">
-                                <i class="fas fa-download"></i>
-                                Descargar Foto
-                            </a>
-                        </div>
-                    </div>
-                `;
-                
-                this.galleryList.appendChild(photoItem);
-                
-                if (this.splide) {
-                    this.splide.refresh();
-                }
-                
-                // Scroll to new photo
-                setTimeout(() => {
-                    if (this.splide) {
-                        this.splide.go(this.photos.length - 1);
-                    }
-                }, 100);
-            }
-
-            updatePhotoCount() {
-                this.photoCount.textContent = this.photos.length;
-                this.photoCount.style.animation = 'pulse 0.5s ease-in-out';
-                setTimeout(() => {
-                    this.photoCount.style.animation = '';
-                }, 500);
-            }
-
-            initCarousel() {
-                this.splide = new Splide('#image-carousel', {
-                    type: 'loop',
-                    perPage: 3,
-                    perMove: 1,
-                    gap: '1rem',
-                    autoplay: false,
-                    pauseOnHover: true,
-                    breakpoints: {
-                        1024: { perPage: 2 },
-                        768: { perPage: 1 }
-                    }
-                });
-                
-                this.splide.mount();
-            }
-
-            showLoader() {
-                this.loader.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-            }
-
-            hideLoader() {
-                this.loader.classList.add('hidden');
-                document.body.style.overflow = '';
-            }
-
-            showNotification(message, type = 'info') {
-                // Remove existing notifications
-                const existingNotifications = document.querySelectorAll('.notification');
-                existingNotifications.forEach(notification => notification.remove());
-
-                const notification = document.createElement('div');
-                notification.className = `notification ${type}`;
-                notification.innerHTML = `
-                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
-                    ${message}
-                `;
-                
-                document.body.appendChild(notification);
-                
-                setTimeout(() => {
-                    notification.style.animation = 'slide-in-right 0.4s cubic-bezier(0.4, 0, 0.2, 1) reverse';
-                    setTimeout(() => {
-                        notification.remove();
-                    }, 400);
-                }, 3000);
-            }
-        }
-
-        // Initialize PhotoBooth when DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            new PhotoBoothPro();
-        });
-
-        // Add some sample photos for demo
-        setTimeout(() => {
-            const demoPhotos = [
-                'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSJ1cmwoI3BhaW50MF9saW5lYXJfMF8xKSIvPgo8dGV4dCB4PSIyMDAiIHk9IjE1MCIgZmlsbD0id2hpdGUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkZvdG8gRGVtbzwvdGV4dD4KPHN2ZyB4PSIxNzAiIHk9IjEwMCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiBmaWxsPSJyZ2JhKDI1NSwgMjU1LCAyNTUsIDAuNSkiPgo8Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIyNSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIi8+CjxjaXJjbGUgY3g9IjMwIiBjeT0iMzAiIHI9IjE1IiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4KPGN5PjEwIGN4PSIyMCIgZmlsbD0icmdiYSgyNTUsIDI1NSwgMjU1LCAwLjMpIi8+Cjxkefs+CjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQwX2xpbmVhcl8wXzEiIHgxPSIwIiB5MT0iMCIgeDI9IjQwMCIgeTI9IjMwMCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgo8c3RvcCBzdG9wLWNvbG9yPSIjNjY3ZWVhIi8+CjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzc2NGJhMiIvPgo8L2xpbmVhckdyYWRpZW50Pgo8L2RlZnM+Cjwvc3ZnPgo='
-            ];
-        }, 2000);
-    </script>
+    <script src="script.js"></script>
 </body>
+
 </html>
